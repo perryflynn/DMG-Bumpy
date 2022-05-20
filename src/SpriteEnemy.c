@@ -16,18 +16,13 @@ void START() {
 void UPDATE() {
 	UINT8 i;
 	Sprite* spr;
-	UINT8 tile;
+	UINT8 tile = 0;
 
 	ENEMY_INFO* data = (ENEMY_INFO*)THIS->custom_data;
 	if (TranslateSprite(THIS, 0, data->vy)) {
 		data->vy = -data->vy;
 	}
 	
-	/*
-	DPRINT_POS(0, 0);
-	DPrintf("x:%d y:%d  ", data->vy, 0);
-	*/
-
 	SPRITEMANAGER_ITERATE(i, spr) {
 		if (spr->type == SpritePlayer) {
 			PLAYER_INFO* info = (PLAYER_INFO*)spr->custom_data;
@@ -40,10 +35,10 @@ void UPDATE() {
 				UINT8 dir = data->vy > 0 ? J_UP : J_DOWN;
 				tile = PERY_PLAYERCOLLISION(SpriteEnemy, spr, dir, THIS);
 			}
-		}
 
-		if (tile == MAPTILE_WALL) {
-			SetState(StateGame);
+			if (tile == MAPTILE_WALL) {
+				info->dead = 1;
+			}
 		}
 	}
 }

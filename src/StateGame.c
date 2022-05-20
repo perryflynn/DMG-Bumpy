@@ -12,13 +12,15 @@ IMPORT_TILES(font);
 UINT8 collision_tiles[] = { 1, 0 };
 
 void START() {
-	//INIT_CONSOLE(font, 3, 2);
+	#ifdef CFG_ENABLE_LOGGING
+	INIT_CONSOLE(font, 3, 2);
+	#endif
 	
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
-	SpriteManagerAdd(SpriteEnemy, 70, 10);
-	SpriteManagerAdd(SpriteEnemy, 70, 40);
+	SpriteManagerAdd(SpriteEnemy, 70, 0);
 	SpriteManagerAdd(SpriteEnemy, 70, 80);
+	SpriteManagerAdd(SpriteEnemy, 70, 120);
 }
 
 void UPDATE() {

@@ -1,5 +1,6 @@
 #include "Pery.h"
 #include "SpritePlayer.h"
+#include <Print.h>
 
 /*
 * Handles collision caused by player and bounces
@@ -15,8 +16,8 @@ UINT8 PERY_PLAYERCOLLISION(
 	// player is colliding with expected sprite type
 	if (target->type == collisionType && CheckCollision(player, target)) {
 		// measure bounce direction
-		UINT8 x = 0;
-		UINT8 y = 0;
+		INT8 x = 0;
+		INT8 y = 0;
 
 		if (playerDirection == J_UP) {
 			y = BOUNCELENGTH;
@@ -36,4 +37,11 @@ UINT8 PERY_PLAYERCOLLISION(
 	}
 
 	return 0;
+}
+
+void PERY_LOGXY(UINT8 x, UINT8 y) {
+#ifdef CFG_ENABLE_LOGGING
+	DPRINT_POS(0, 0);
+	DPrintf("x:%d y:%d  ", x, y);
+#endif
 }

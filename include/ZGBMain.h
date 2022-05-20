@@ -12,4 +12,6 @@ SPRITE_DEF_END
 
 #include "ZGBMain_Init.h"
 
+//#define CFG_ENABLE_LOGGING
+
 #endif
