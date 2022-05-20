@@ -5,6 +5,7 @@
 #include "SpritePlayer.h"
 #include "Pery.h"
 #include <Print.h>
+#include "SpriteEnemy.h"
 
 
 const UINT8 PLAYER_IDLE[] = { 1, 0 }; //The first number indicates the number of frames
@@ -25,6 +26,7 @@ void UPDATE() {
 	UINT8 tile = 0;
 	UINT8 lastDirection = 0;
 
+	// Dead
 	if (info->dead) {
 		SetState(StateGame);
 		SetSpriteAnim(THIS, PLAYER_DEAD, 15);
@@ -32,6 +34,7 @@ void UPDATE() {
 		return;
 	}
 
+	// Movement
 	info->moving = 1;
 
 	if (KEY_PRESSED(J_UP)) {
@@ -63,6 +66,7 @@ void UPDATE() {
 		info->moving = 0;
 	}
 
+	// Collisions
 	SPRITEMANAGER_ITERATE(i, spr) {
 		// only when the player moves
 		// see the enemy sprite
@@ -74,6 +78,11 @@ void UPDATE() {
 			if (tile == MAPTILE_WALL || coltile == MAPTILE_WALL) {
 				info->dead = 1;
 			}
+		}
+
+		if (lastDirection && spr->type == SpriteEnemy) {
+			ENEMY_INFO* einfo = (ENEMY_INFO*)spr->custom_data;
+			einfo->moving = 1;
 		}
 	}
 }

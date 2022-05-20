@@ -10,7 +10,9 @@
 
 void START() {
 	ENEMY_INFO* data = (ENEMY_INFO*)THIS->custom_data;
-	data->vy = 1;
+	data->vy = -1;
+	data->vx = -1;
+	data->moving = 0;
 }
 
 void UPDATE() {
@@ -19,14 +21,15 @@ void UPDATE() {
 	UINT8 tile = 0;
 
 	ENEMY_INFO* data = (ENEMY_INFO*)THIS->custom_data;
-	if (TranslateSprite(THIS, 0, data->vy)) {
+	if (data->moving && TranslateSprite(THIS, data->vx, data->vy)) {
 		data->vy = -data->vy;
+		data->vx = -data->vx;
 	}
 	
 	SPRITEMANAGER_ITERATE(i, spr) {
 		if (spr->type == SpritePlayer) {
 			PLAYER_INFO* info = (PLAYER_INFO*)spr->custom_data;
-			 
+			
 			// only when the player is not moves
 			// see player sprite
 			if (!info->moving) {
