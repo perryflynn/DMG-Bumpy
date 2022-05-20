@@ -3,7 +3,9 @@
 #include <SpriteManager.h>
 #include "ZGBMain.h"
 #include "SpritePlayer.h"
+#include "Pery.h"
 #include <Print.h>
+
 
 const UINT8 anim_idle[] = { 1, 0 }; //The first number indicates the number of frames
 const UINT8 anim_walk[] = { 2, 1, 2 };
@@ -53,28 +55,12 @@ void UPDATE() {
 	}
 
 	SPRITEMANAGER_ITERATE(i, spr) {
+		// only when the player moves
+		// see the enemy sprite
 		if (info->moving) {
-			if (spr->type == SpriteEnemy && CheckCollision(THIS, spr)) {
+			tile = PERY_PLAYERCOLLISION(SpriteEnemy, THIS, lastDirection, spr);
 
-				UINT8 x = 0;
-				UINT8 y = 0;
-
-				if (lastDirection == J_UP) {
-					y = 5;
-				}
-				if (lastDirection == J_DOWN) {
-					y = -5;
-				}
-				if (lastDirection == J_LEFT) {
-					x = 5;
-				}
-				if (lastDirection == J_RIGHT) {
-					x = -5;
-				}
-
-				tile = TranslateSprite(THIS, x, y);
-			}
-			if (tile == 1) {
+			if (tile == MAPTILE_WALL) {
 				SetState(StateGame);
 			}
 		}

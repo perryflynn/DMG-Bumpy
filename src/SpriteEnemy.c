@@ -5,6 +5,7 @@
 #include "SpritePlayer.h"
 #include <Print.h>
 #include "SpriteEnemy.h"
+#include "Pery.h"
 
 
 void START() {
@@ -15,7 +16,6 @@ void START() {
 void UPDATE() {
 	UINT8 i;
 	Sprite* spr;
-	UINT8 lastDirection;
 	UINT8 tile;
 
 	ENEMY_INFO* data = (ENEMY_INFO*)THIS->custom_data;
@@ -29,23 +29,20 @@ void UPDATE() {
 	*/
 
 	SPRITEMANAGER_ITERATE(i, spr) {
-		if (spr->type == SpritePlayer && CheckCollision(THIS, spr)) {
+		if (spr->type == SpritePlayer) {
 			PLAYER_INFO* info = (PLAYER_INFO*)spr->custom_data;
-
+			 
+			// only when the player is not moves
+			// see player sprite
 			if (!info->moving) {
-				UINT8 y = 0;
-
-				if (data->vy > 0) {
-					y = 5;
-				}
-				else {
-					y = -5;
-				}
-
-				tile = TranslateSprite(spr, 0, y);
+				// use the player collition function to
+				// bounce the player when the enemy runs into the player
+				UINT8 dir = data->vy > 0 ? J_UP : J_DOWN;
+				tile = PERY_PLAYERCOLLISION(SpriteEnemy, spr, dir, THIS);
 			}
 		}
-		if (tile == 1) {
+
+		if (tile == MAPTILE_WALL) {
 			SetState(StateGame);
 		}
 	}
