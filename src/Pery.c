@@ -2,7 +2,7 @@
 #include "SpritePlayer.h"
 
 /*
-* Handles collition caused by player and bounces
+* Handles collision caused by player and bounces
 * the player back and returns the colliding map tile type
 */
 UINT8 PERY_PLAYERCOLLISION(

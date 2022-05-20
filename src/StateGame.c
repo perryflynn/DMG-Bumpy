@@ -16,6 +16,7 @@ void START() {
 	
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
+	SpriteManagerAdd(SpriteEnemy, 70, 10);
 	SpriteManagerAdd(SpriteEnemy, 70, 40);
 	SpriteManagerAdd(SpriteEnemy, 70, 80);
 }
