@@ -11,7 +11,8 @@ IMPORT_TILES(font);
 UINT8 collision_tiles[] = { 1, 0 };
 
 void START() {
-	INIT_CONSOLE(font, 3, 2);
+	//INIT_CONSOLE(font, 3, 2);
+	
 	scroll_target = SpriteManagerAdd(SpritePlayer, 50, 50);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 	SpriteManagerAdd(SpriteEnemy, 70, 40);
