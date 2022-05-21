@@ -14,4 +14,6 @@ SPRITE_DEF_END
 
 //#define CFG_ENABLE_LOGGING
 
+void CreateEnemy(UINT16 x, UINT16 y, UINT8 vx, UINT8 vy);
+
 #endif

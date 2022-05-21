@@ -4,6 +4,7 @@
 #include "Scroll.h"
 #include "SpriteManager.h"
 #include <Print.h>
+#include "SpriteEnemy.h"
 
 
 IMPORT_MAP(map);
@@ -16,19 +17,18 @@ void START() {
 	INIT_CONSOLE(font, 3, 2);
 	#endif
 	
-	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 50);
+	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 100);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
-	SpriteManagerAdd(SpriteEnemy, 70, 10);
-	SpriteManagerAdd(SpriteEnemy, 70, 30);
-	SpriteManagerAdd(SpriteEnemy, 70, 50);
-	SpriteManagerAdd(SpriteEnemy, 70, 70);
-	SpriteManagerAdd(SpriteEnemy, 70, 90);
-	SpriteManagerAdd(SpriteEnemy, 90, 20);
-	SpriteManagerAdd(SpriteEnemy, 90, 40);
-	SpriteManagerAdd(SpriteEnemy, 90, 60);
-	SpriteManagerAdd(SpriteEnemy, 90, 80);
-	SpriteManagerAdd(SpriteEnemy, 90, 100);
+	CreateEnemy(50, 95, -1, 0);
+	CreateEnemy(100, 95, 0, -1);
 }
 
 void UPDATE() {
+}
+
+void CreateEnemy(UINT16 x, UINT16 y, UINT8 vx, UINT8 vy) {
+	Sprite *spr = SpriteManagerAdd(SpriteEnemy, x, y);
+	ENEMY_INFO* data = (ENEMY_INFO*)spr->custom_data;
+	data->vx = vx;
+	data->vy = vy;
 }

@@ -8,7 +8,7 @@
 */
 UINT8 PERY_PLAYERCOLLISION(
 	SPRITE_TYPE collisionType, 
-	Sprite *player, UINT8 playerDirection, 
+	Sprite *player, UBYTE playerDirection, 
 	Sprite *target
 ) {
 	PLAYER_INFO* info = (PLAYER_INFO*)player->custom_data;
@@ -19,16 +19,16 @@ UINT8 PERY_PLAYERCOLLISION(
 		INT8 x = 0;
 		INT8 y = 0;
 
-		if (playerDirection == J_UP) {
+		if (/*(playerDirection & J_UP) > 0 &&*/ player->y > target->y) {
 			y = BOUNCELENGTH;
 		}
-		if (playerDirection == J_DOWN) {
+		if (/*(playerDirection & J_DOWN) > 0 &&*/ target->y > player->y) {
 			y = -BOUNCELENGTH;
 		}
-		if (playerDirection == J_LEFT) {
+		if (/*(playerDirection & J_LEFT) > 0 &&*/ player->x > target->x) {
 			x = BOUNCELENGTH;
 		}
-		if (playerDirection == J_RIGHT) {
+		if (/*(playerDirection & J_RIGHT) > 0 &&*/ target->x > player->x) {
 			x = -BOUNCELENGTH;
 		}
 
