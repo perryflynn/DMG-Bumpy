@@ -2,6 +2,8 @@
 
 A GameBoy classic game written in C, using the [ZGB](https://github.com/Zal0/ZGB) engine.
 
+![demo](demo.gif)
+
 ## Build
 
 - Get latest release from [ZGB](https://github.com/Zal0/ZGB)
