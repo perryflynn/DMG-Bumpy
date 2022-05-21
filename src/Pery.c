@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /*
 * Handles collision caused by player and bounces
 * the player back and returns the colliding map tile type
