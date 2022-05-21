@@ -6,6 +6,8 @@
 #include "Pery.h"
 #include <Print.h>
 #include "SpriteEnemy.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 
 const UINT8 PLAYER_IDLE[] = { 1, 0 }; //The first number indicates the number of frames
@@ -75,23 +77,29 @@ void UPDATE() {
 		lastDirection = 0;
 	}
 
+	if (tile == MAPTILE_WALL) {
+		info->dead = 1;
+	}
+
 	// Collisions
+	INT16 px = (INT16)THIS->x;
+	INT16 py = (INT16)THIS->y;
+
 	SPRITEMANAGER_ITERATE(i, spr) {
-		// only when the player moves
-		// see the enemy sprite
-		/*
-		if (info->moving) {
-			UINT8 coltile = PERY_PLAYERCOLLISION(SpriteEnemy, THIS, lastDirection, spr);
+		INT16 tx = (INT16)spr->x;
+		INT16 ty = (INT16)spr->y;
 
-			PERY_LOGXY(coltile, 0);
-
-			if (tile == MAPTILE_WALL || coltile == MAPTILE_WALL) {
-				info->dead = 1;
-			}
+#ifdef CFG_ENABLE_LOGGING
+		if (spr->type == SpriteEnemy) {
+			DPRINT_POS(0, 0);
+			DPrintf("%d %d %d %d ", px - tx, py - ty, 0, 0);
 		}
-		*/
+#endif
 
-		if (lastDirection && spr->type == SpriteEnemy) {
+		// trigger enemy when player is nearby
+		if (lastDirection && spr->type == SpriteEnemy &&
+			(abs(px-tx) < 30 && abs(py-ty) < 30)
+		) {
 			ENEMY_INFO* einfo = (ENEMY_INFO*)spr->custom_data;
 			einfo->moving = 1;
 		}

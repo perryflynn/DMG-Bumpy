@@ -1,6 +1,8 @@
 #include "Pery.h"
 #include "SpritePlayer.h"
 #include <Print.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 /*
 * Handles collision caused by player and bounces
@@ -19,29 +21,39 @@ UINT8 PERY_PLAYERCOLLISION(
 		INT8 x = 0;
 		INT8 y = 0;
 
-		if (/*(playerDirection & J_UP) > 0 &&*/ player->y > target->y) {
+		// player length + enemy length
+		INT8 xavg = (16 + 12) / 2;
+		INT8 yavg = (16 + 16) / 2;
+
+		// be able to be negative <3
+		INT16 px = (INT16)player->x;
+		INT16 py = (INT16)player->y;
+		INT16 tx = (INT16)target->x;
+		INT16 ty = (INT16)target->y;
+
+		// player is below the middle of the target
+		if (py-ty > yavg/2) {
 			y = BOUNCELENGTH;
 		}
-		if (/*(playerDirection & J_DOWN) > 0 &&*/ target->y > player->y) {
+
+		// player is above the middle of the target
+		if (ty-py > yavg/2) {
 			y = -BOUNCELENGTH;
 		}
-		if (/*(playerDirection & J_LEFT) > 0 &&*/ player->x > target->x) {
+
+		// player is right of the middle of the target
+		if (px - tx > xavg / 2) {
 			x = BOUNCELENGTH;
 		}
-		if (/*(playerDirection & J_RIGHT) > 0 &&*/ target->x > player->x) {
+
+		// player is left of the middle of the target
+		if (tx - px > xavg / 2) {
 			x = -BOUNCELENGTH;
 		}
-
+		
 		// bounce and return the current map tile type
 		return TranslateSprite(player, x, y);
 	}
 
 	return 0;
-}
-
-void PERY_LOGXY(UINT8 x, UINT8 y) {
-#ifdef CFG_ENABLE_LOGGING
-	DPRINT_POS(0, 0);
-	DPrintf("x:%d y:%d  ", x, y);
-#endif
 }

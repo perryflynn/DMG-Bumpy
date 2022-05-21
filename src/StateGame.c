@@ -20,13 +20,13 @@ void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 100);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 	CreateEnemy(50, 95, -1, 0);
-	CreateEnemy(100, 95, 0, -1);
+	CreateEnemy(97, 80, 0, 1);
 }
 
 void UPDATE() {
 }
 
-void CreateEnemy(UINT16 x, UINT16 y, UINT8 vx, UINT8 vy) {
+void CreateEnemy(UINT16 x, UINT16 y, INT8 vx, INT8 vy) {
 	Sprite *spr = SpriteManagerAdd(SpriteEnemy, x, y);
 	ENEMY_INFO* data = (ENEMY_INFO*)spr->custom_data;
 	data->vx = vx;

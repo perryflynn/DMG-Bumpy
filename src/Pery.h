@@ -5,5 +5,3 @@
 #define MAPTILE_WALL 1
 
 UINT8 PERY_PLAYERCOLLISION(SPRITE_TYPE collisionType, Sprite* player, UBYTE playerDirection, Sprite* target);
-
-void PERY_LOGXY(UINT8 x, UINT8 y);
