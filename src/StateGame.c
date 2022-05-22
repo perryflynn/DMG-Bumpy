@@ -20,7 +20,7 @@ void START() {
 	scroll_target = SpriteManagerAdd(SpritePlayer, 20, 100);
 	InitScroll(BANK(map), &map, collision_tiles, 0);
 	CreateEnemy(50, 95, -1, 0);
-	CreateEnemy(97, 80, 0, 1);
+	CreateEnemy(97, 75, 0, 1);
 }
 
 void UPDATE() {
